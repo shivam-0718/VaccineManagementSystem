@@ -4,6 +4,8 @@ import com.vms.vaccine.model.Vaccine;
 import com.vms.vaccine.repo.IVaccineRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,8 +52,32 @@ public class VaccineService implements IVaccineService{
     }
 
     @Override
-    public Iterable<Vaccine> fetchVaccineByIds(Iterable<Long> ids) {
-        return repo.findAllById(ids);
+    public Iterable<Vaccine> fetchVaccineByIds(Iterable<Long> vaccineIds) {
+        return repo.findAllById(vaccineIds);
+    }
+
+    @Override
+    public Iterable<Vaccine> fetchVaccineById(Long vaccineId) {
+        Optional<Vaccine> optional = repo.findById(vaccineId);
+        if(optional.isPresent()) {
+            System.out.println("Vaccine with ID " + vaccineId + " found.");
+            Vaccine vac = optional.get();
+            return List.of(vac);
+        } else {
+            System.out.println("Vaccine with ID " + vaccineId + " not found.");
+            return List.of();
+        }
+    }
+
+    @Override
+    public String removeVaccineById(Long vaccineId) {
+        Optional<Vaccine> optional = repo.findById(vaccineId);
+        if(optional.isPresent()) {
+            repo.deleteById(vaccineId);
+            return "Vaccine with ID " + vaccineId + " has been removed .";
+        } else {
+            return "There is no vaccine with ID " + vaccineId + " to remove .";
+        }
     }
 
 
