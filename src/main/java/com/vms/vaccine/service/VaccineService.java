@@ -3,6 +3,9 @@ package com.vms.vaccine.service;
 import com.vms.vaccine.model.Vaccine;
 import com.vms.vaccine.repo.IVaccineRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -80,5 +83,35 @@ public class VaccineService implements IVaccineService{
         }
     }
 
+    @Override
+    public Iterable<Vaccine> getVaccinesSortedByField(boolean status, String... properties) {
+        Sort sort = Sort.by(status ? Sort.Direction.ASC : Sort.Direction.DESC, properties);
+        return repo.findAll(sort);
+    }
 
+    @Override
+    public void retrieveSortedVaccinePages(int pages, int pageSize, boolean status, String... properties) {
+        // Retrieve vaccines in a paginated manner based on the provided page number, size, and sort order
+        Sort sort = Sort.by(status ? Sort.Direction.ASC : Sort.Direction.DESC, properties); // Create sort object based on status and properties
+        PageRequest pageable = PageRequest.of(pages, pageSize, sort); // Create pageable object with page number, size, and sort order
+        Page<Vaccine> page = repo.findAll(pageable); // Fetch the page of vaccines
+        List<Vaccine> vaccinePage = page.getContent(); // Return the content of the page as an Iterable<Vaccine>
+        vaccinePage.forEach(v -> System.out.println(v));
+    }
+
+    @Override
+    public void retrieveVaccinePages(int pageSize) {
+        //dynamically I want number of pages to be fetched based on page size
+        Long count = getVaccineCount(); // Get the total count of vaccines
+
+        Long pageCount = count / pageSize;
+        pageCount = count % pageSize == 0 ? pageCount : ++pageCount; //fetching total number of pages based on page size and count
+        for(int i = 0; i < pageCount; i++) {
+            PageRequest pageable = PageRequest.of(i, pageSize); // Create pageable object with current page and size
+            Page<Vaccine> page = repo.findAll(pageable); // Fetch the page of vaccines
+            List<Vaccine> vaccinePage = page.getContent(); // Get the content of the page
+            vaccinePage.forEach(v -> System.out.println(v));
+            System.out.println("--------------------------------- Page " + (i + 1) + " ---------------------------------");
+        }
+    }
 }
