@@ -33,11 +33,15 @@ public class Vaccine {
     @Column(name = "Available_Doses")
     private Integer availableDoses = 0;
 
+    @Column(name = "Disease_Effective_Against")
+    private String effectiveAgainst;
+
     @Builder
-    public Vaccine(String vaccineName, String vaccineCompany, Double cost, Integer availableDoses) {
+    public Vaccine(String vaccineName, String vaccineCompany, Double cost, Integer availableDoses, String effectiveAgainst) {
         this.vaccineName = vaccineName;
         this.vaccineCompany = vaccineCompany;
         this.cost = cost;
         this.availableDoses = availableDoses;
+        this.effectiveAgainst = effectiveAgainst;
     }
 }
