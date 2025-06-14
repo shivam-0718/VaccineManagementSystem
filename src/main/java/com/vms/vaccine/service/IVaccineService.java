@@ -11,4 +11,8 @@ public interface IVaccineService {
     Iterable<Vaccine> fetchVaccineByIds(Iterable<Long> vaccineIds);
     Iterable<Vaccine> fetchVaccineById(Long vaccineId);
     String removeVaccineById(Long vaccineId);
+
+    Iterable<Vaccine> getVaccinesSortedByField(boolean status, String... properties);
+    void retrieveSortedVaccinePages(int pages, int pageSize, boolean status, String... properties);
+    void retrieveVaccinePages(int pageSize);
 }
