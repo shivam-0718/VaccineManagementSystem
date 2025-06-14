@@ -124,4 +124,29 @@ public class VaccineService implements IVaccineService{
             System.out.println("--------------------------------- Page " + (i + 1) + " ---------------------------------");
         }
     }
+
+    @Override
+    public void searchByCostEquals(Double cost) {
+        repo.findByCostEquals(cost).forEach(v -> System.out.println(v));
+    }
+
+    @Override
+    public void searchByCostLessThanEquals(Double cost) {
+        repo.findByCostLessThanEquals(cost).forEach(v -> System.out.println(v));
+    }
+
+    @Override
+    public void searchByCostBetween(Double minCost, Double maxCost) {
+        repo.findByCostBetween(minCost, maxCost).forEach(v -> System.out.println(v));
+    }
+
+    @Override
+    public void findByVaccineNameEquals(String vaccineName) {
+        repo.findByVaccineNameEquals(vaccineName).forEach(v -> System.out.println(v));
+    }
+
+    @Override
+    public void findByVaccineCompanyEquals(String vaccineCompany) {
+        repo.findByVaccineCompanyEquals(vaccineCompany).forEach(v -> System.out.println(v));
+    }
 }
