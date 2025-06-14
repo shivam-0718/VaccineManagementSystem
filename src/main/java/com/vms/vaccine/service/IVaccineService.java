@@ -13,6 +13,8 @@ public interface IVaccineService {
     String removeVaccineById(Long vaccineId);
 
     Iterable<Vaccine> getVaccinesSortedByField(boolean status, String... properties);
-    void retrieveSortedVaccinePages(int pages, int pageSize, boolean status, String... properties);
+    void retrieveSortedVaccinePages(int pageSize, boolean status, String... properties);
     void retrieveVaccinePages(int pageSize);
+
+
 }
