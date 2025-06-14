@@ -8,5 +8,7 @@ public interface IVaccineService {
     Long getVaccineCount();
     String checkVaccineAvailability(Long vaccineId);
     Iterable<Vaccine> fetchAllVaccines();
-    Iterable<Vaccine> fetchVaccineByIds(Iterable<Long> ids);
+    Iterable<Vaccine> fetchVaccineByIds(Iterable<Long> vaccineIds);
+    Iterable<Vaccine> fetchVaccineById(Long vaccineId);
+    String removeVaccineById(Long vaccineId);
 }
