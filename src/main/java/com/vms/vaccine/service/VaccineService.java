@@ -90,13 +90,23 @@ public class VaccineService implements IVaccineService{
     }
 
     @Override
-    public void retrieveSortedVaccinePages(int pages, int pageSize, boolean status, String... properties) {
+    public void retrieveSortedVaccinePages(int pageSize, boolean status, String... properties) {
         // Retrieve vaccines in a paginated manner based on the provided page number, size, and sort order
         Sort sort = Sort.by(status ? Sort.Direction.ASC : Sort.Direction.DESC, properties); // Create sort object based on status and properties
-        PageRequest pageable = PageRequest.of(pages, pageSize, sort); // Create pageable object with page number, size, and sort order
-        Page<Vaccine> page = repo.findAll(pageable); // Fetch the page of vaccines
-        List<Vaccine> vaccinePage = page.getContent(); // Return the content of the page as an Iterable<Vaccine>
-        vaccinePage.forEach(v -> System.out.println(v));
+
+        long count = getVaccineCount();
+        long pageCount = count / pageSize;
+        pageCount = count % pageSize == 0 ? pageCount : ++pageCount; //fetching total number of pages based on page size and count
+
+        // Loop through each page and fetch the vaccines in sorted order in pages dynamically
+        for (int i = 0; i < pageCount; i++) {
+            PageRequest pageable = PageRequest.of(i, pageSize, sort); // Create pageable object with page number, size, and sort order
+            Page<Vaccine> page = repo.findAll(pageable); // Fetch the page of vaccines
+            List<Vaccine> vaccinePage = page.getContent(); // Return the content of the page as an Iterable<Vaccine>
+            vaccinePage.forEach(v -> System.out.println(v));
+            System.out.println("--------------------------------- Page " + (i + 1) + " ---------------------------------");
+        }
+
     }
 
     @Override
