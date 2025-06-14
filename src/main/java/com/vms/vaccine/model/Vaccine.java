@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "Vaccines")
 public class Vaccine {
@@ -29,10 +27,17 @@ public class Vaccine {
     @Column(name = "Vaccine_Company", nullable = false)
     private String vaccineCompany;
 
-    @Column(name = "Vaccine_Cost", nullable = false)
+    @Column(name = "Vaccine_Cost_INR", nullable = false)
     private Double cost;
 
-    @Builder.Default
     @Column(name = "Available_Doses")
     private Integer availableDoses = 0;
+
+    @Builder
+    public Vaccine(String vaccineName, String vaccineCompany, Double cost, Integer availableDoses) {
+        this.vaccineName = vaccineName;
+        this.vaccineCompany = vaccineCompany;
+        this.cost = cost;
+        this.availableDoses = availableDoses;
+    }
 }
