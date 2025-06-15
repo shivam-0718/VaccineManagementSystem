@@ -141,22 +141,57 @@ public class VaccineService implements IVaccineService{
     }
 
     @Override
-    public void findByVaccineName(String vaccineName) {
+    public void searchByVaccineName(String vaccineName) {
         repo.findByVaccineNameIgnoreCase(vaccineName).forEach(v -> System.out.println(v));
     }
 
     @Override
-    public void findByVaccineCompany(String vaccineCompany) {
+    public void searchByVaccineCompany(String vaccineCompany) {
         repo.findByVaccineCompanyIgnoreCase(vaccineCompany).forEach(v -> System.out.println(v));
     }
 
     @Override
-    public void findByVaccineNameContaining(String name) {
+    public void searchByVaccineNameContaining(String name) {
         repo.findByVaccineNameContainingIgnoreCase(name).forEach(v -> System.out.println(v));
     }
 
     @Override
-    public void findByVaccineCompanyContaining(String name) {
+    public void searchByVaccineCompanyContaining(String name) {
         repo.findByVaccineCompanyContainingIgnoreCase(name).forEach(v -> System.out.println(v));
+    }
+
+    @Override
+    public void searchByAvailableDoses(Integer minDoses, Integer maxDoses) {
+        repo.findByAvailableDoses(minDoses, maxDoses).forEach(v -> System.out.println(v));
+    }
+
+    @Override
+    public void modifyCostByVaccineName(Double newCost, String vaccineName) {
+        int affectedRows = repo.updateCostByVaccineName(newCost, vaccineName);
+        if(affectedRows == 0) {
+            System.out.println("No vaccine found with the name: " + vaccineName);
+        } else {
+            System.out.println("Cost updated successfully for " + vaccineName + " vaccine to " + newCost);
+        }
+    }
+
+    @Override
+    public void modifyCostById(Double newCost, Long id) {
+        int affectedRows = repo.updateCostById(newCost, id);
+        if(affectedRows == 0) {
+            System.out.println("No vaccine found with the id: " + id);
+        } else {
+            System.out.println("Cost updated successfully for " + id + " vaccine id to " + newCost);
+        }
+    }
+
+    @Override
+    public void deleteVaccineByName(String vaccineName) {
+        int affectedRows = repo.deleteByVaccineName(vaccineName);
+        if(affectedRows == 0) {
+            System.out.println("No vaccine found with the given name. Enter the correct vaccine name.");
+        } else {
+            System.out.println("Given vaccine name " + vaccineName + " has been deleted successfully.");
+        }
     }
 }
