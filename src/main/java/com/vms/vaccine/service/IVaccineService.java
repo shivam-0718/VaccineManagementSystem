@@ -2,8 +2,6 @@ package com.vms.vaccine.service;
 
 import com.vms.vaccine.model.Vaccine;
 
-import java.util.List;
-
 public interface IVaccineService {
     String registerVaccineInfo(Vaccine vaccine);
     Iterable<Vaccine> registerMultipleVaccineInfo(Iterable<Vaccine> vaccines);
@@ -19,10 +17,13 @@ public interface IVaccineService {
     void retrieveVaccinePages(int pageSize);
 
     void searchByCostEquals(Double cost);
-    void searchByCostLessThanEquals(Double cost);
+    void searchByCostLessThanEqual(Double cost);
     void searchByCostBetween(Double minCost, Double maxCost);
 
-    void findByVaccineNameEquals(String vaccineName);
-    void findByVaccineCompanyEquals(String vaccineCompany);
+    void findByVaccineName(String vaccineName);
+    void findByVaccineCompany(String vaccineCompany);
+
+    void findByVaccineNameContaining(String name);
+    void findByVaccineCompanyContaining(String name);
 
 }
