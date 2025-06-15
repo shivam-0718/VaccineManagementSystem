@@ -1,6 +1,7 @@
 package com.vms.vaccine.service;
 
 import com.vms.vaccine.model.Vaccine;
+import org.springframework.data.repository.query.Param;
 
 public interface IVaccineService {
     String registerVaccineInfo(Vaccine vaccine);
@@ -20,10 +21,17 @@ public interface IVaccineService {
     void searchByCostLessThanEqual(Double cost);
     void searchByCostBetween(Double minCost, Double maxCost);
 
-    void findByVaccineName(String vaccineName);
-    void findByVaccineCompany(String vaccineCompany);
+    void searchByVaccineName(String vaccineName);
+    void searchByVaccineCompany(String vaccineCompany);
 
-    void findByVaccineNameContaining(String name);
-    void findByVaccineCompanyContaining(String name);
+    void searchByVaccineNameContaining(String name);
+    void searchByVaccineCompanyContaining(String name);
+
+    void searchByAvailableDoses(Integer minDoses, Integer maxDoses);
+
+    void modifyCostByVaccineName(Double newCost, String vaccineName);
+    void modifyCostById(Double newCost, Long id);
+
+    void deleteVaccineByName(String vaccineName);
 
 }
