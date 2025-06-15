@@ -131,8 +131,8 @@ public class VaccineService implements IVaccineService{
     }
 
     @Override
-    public void searchByCostLessThanEquals(Double cost) {
-        repo.findByCostLessThanEquals(cost).forEach(v -> System.out.println(v));
+    public void searchByCostLessThanEqual(Double cost) {
+        repo.findByCostLessThanEqual(cost).forEach(v -> System.out.println(v));
     }
 
     @Override
@@ -141,12 +141,22 @@ public class VaccineService implements IVaccineService{
     }
 
     @Override
-    public void findByVaccineNameEquals(String vaccineName) {
-        repo.findByVaccineNameEquals(vaccineName).forEach(v -> System.out.println(v));
+    public void findByVaccineName(String vaccineName) {
+        repo.findByVaccineNameIgnoreCase(vaccineName).forEach(v -> System.out.println(v));
     }
 
     @Override
-    public void findByVaccineCompanyEquals(String vaccineCompany) {
-        repo.findByVaccineCompanyEquals(vaccineCompany).forEach(v -> System.out.println(v));
+    public void findByVaccineCompany(String vaccineCompany) {
+        repo.findByVaccineCompanyIgnoreCase(vaccineCompany).forEach(v -> System.out.println(v));
+    }
+
+    @Override
+    public void findByVaccineNameContaining(String name) {
+        repo.findByVaccineNameContainingIgnoreCase(name).forEach(v -> System.out.println(v));
+    }
+
+    @Override
+    public void findByVaccineCompanyContaining(String name) {
+        repo.findByVaccineCompanyContainingIgnoreCase(name).forEach(v -> System.out.println(v));
     }
 }
