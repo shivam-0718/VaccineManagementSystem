@@ -26,4 +26,10 @@ public class VaccineController {
         List<Vaccine> vaccines = (List<Vaccine>) service.fetchAllVaccines();
         return new ResponseEntity<>(vaccines, HttpStatus.OK);
     }
+
+    @GetMapping("/vaccine-stock/{id}")
+    public ResponseEntity<String> vaccineStock(@PathVariable Long id) {
+        String stockDetails = service.checkVaccineAvailability(id);
+        return new ResponseEntity<String>(stockDetails, HttpStatus.OK);
+    }
 }
