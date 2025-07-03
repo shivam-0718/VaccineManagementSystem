@@ -32,4 +32,17 @@ public class VaccineController {
         String stockDetails = service.checkVaccineAvailability(id);
         return new ResponseEntity<String>(stockDetails, HttpStatus.OK);
     }
+
+    @GetMapping("/get-vaccine/{id}")
+    public ResponseEntity<List<Vaccine>> getVaccineById(@PathVariable("id") Long id) {
+        List<Vaccine> vac = (List<Vaccine>) service.fetchVaccineById(id);
+        return new ResponseEntity<>(vac, HttpStatus.OK);
+    }
+
+    @PatchMapping("/update-vaccine/{id}/{newCost}")
+    public ResponseEntity<?> updateVaccineById(@PathVariable("id") Long id, @PathVariable("newCost") Double newCost) {
+        String response = service.modifyCostById(newCost, id);
+        return new ResponseEntity<String>(response, HttpStatus.ACCEPTED);
+    }
+
 }
