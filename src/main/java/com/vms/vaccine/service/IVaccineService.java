@@ -30,7 +30,7 @@ public interface IVaccineService {
     void searchByAvailableDoses(Integer minDoses, Integer maxDoses);
 
     void modifyCostByVaccineName(Double newCost, String vaccineName);
-    void modifyCostById(Double newCost, Long id);
+    String modifyCostById(Double newCost, Long id);
 
     void deleteVaccineByName(String vaccineName);
 
