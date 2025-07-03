@@ -176,12 +176,12 @@ public class VaccineService implements IVaccineService{
     }
 
     @Override
-    public void modifyCostById(Double newCost, Long id) {
+    public String modifyCostById(Double newCost, Long id) {
         int affectedRows = repo.updateCostById(newCost, id);
         if(affectedRows == 0) {
-            System.out.println("No vaccine found with the id: " + id);
+            return "No vaccine found with the id: " + id;
         } else {
-            System.out.println("Cost updated successfully for " + id + " vaccine id to " + newCost);
+            return "Cost updated successfully for " + id + " vaccine id to " + newCost;
         }
     }
 
