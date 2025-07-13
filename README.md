@@ -288,7 +288,7 @@ The application provides sophisticated querying capabilities through custom repo
 ## 📞 Support
 
 If you encounter any issues or have questions, please:
-1. Check the [Issues](https://github.com/yourusername/vaccine-management-system/issues) section
+1. Check the [Issues](https://github.com/shivam-0718/VaccineManagementSystem/issues) section
 2. Create a new issue if your problem isn't already reported
 3. Provide detailed information about your environment and the issue
 4. Access the Swagger UI for API documentation and testing
